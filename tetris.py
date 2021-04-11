@@ -13,6 +13,8 @@ from pygame import Rect
 import pygame
 import numpy as np
 
+#Importamos las excepciones
+from excepciones.excepciones import BottomReached, TopReached
 
 WINDOW_WIDTH, WINDOW_HEIGHT = 500, 601
 GRID_WIDTH, GRID_HEIGHT = 300, 600
@@ -37,14 +39,6 @@ def remove_empty_columns(arr, _x_offset=0, _keep_counting=True):
         else:
             _keep_counting = False
     return arr, _x_offset
-
-
-class BottomReached(Exception):
-    pass
-
-
-class TopReached(Exception):
-    pass
 
 
 class Block(pygame.sprite.Sprite):
