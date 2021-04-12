@@ -28,12 +28,6 @@ class Block(pygame.sprite.Sprite):
         # Get a random color.
         self.current = True
         self.struct = np.array(self.struct)
-        # Initial random rotation and flip.
-        if random.randint(0, 1):
-            self.struct = np.rot90(self.struct)
-        if random.randint(0, 1):
-            # Flip in the X axis.
-            self.struct = np.flip(self.struct, 0)
         self._draw()
     
     def _draw(self, x=4, y=0):
@@ -142,43 +136,39 @@ class SquareBlock(Block):
     color = (255, 255, 0)
     struct = (
         (1, 1),
-        (1, 1)
+        (1, 1),
     )
 
 
 class TBlock(Block):
     color = (102, 0, 255)
     struct = (
+        (0, 1, 0),
         (1, 1, 1),
-        (0, 1, 0)
     )
 
 
 class LineBlock(Block):
     color = (0, 255, 255)
     struct = (
-        (1,),
-        (1,),
-        (1,),
-        (1,)
+        (1, 1, 1, 1),
+
     )
 
 
 class LBlock(Block):
     color = (0, 0, 255)
     struct = (
-        (1, 1),
-        (1, 0),
-        (1, 0),
+        (1, 0, 0, 0),
+        (1, 1, 1, 1),
     )
 
 
 class ZBlock(Block):
     color = (0, 255, 0)
     struct = (
-        (0, 1),
-        (1, 1),
-        (1, 0),
+        (1, 1, 0),
+        (0, 1, 1),
     )
 
 
