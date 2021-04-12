@@ -14,7 +14,7 @@ import pygame
 import numpy as np
 
 #Importamos las excepciones
-from excepciones.excepciones import BottomReached, TopReached
+from excepciones.excepciones import *
 from bloques.bloques import BlocksGroup
 
 WINDOW_WIDTH, WINDOW_HEIGHT = 500, 601
@@ -32,31 +32,34 @@ class Grid():
         self.height = height    
 
 class Juego():
+ 
     def __init__(self, window, grid, title_size):
         self.window = window
         self.grid = grid
         self.title_size = title_size
+        self.COLUMNAS = 10
+        self.FILAS = 20
+
+    def draw_grid(self, background):
+        """Draw the background grid."""
+        grid_color = 50, 50, 50
+        # Vertical lines.
+        for i in range(self.COLUMNAS+1):
+            x = self.title_size * i
+            pygame.draw.line(
+                background, grid_color, (x, 0), (x, self.grid.height)
+            )
+        # Horizontal liens.
+        for i in range(self.FILAS+1):
+            y = self.title_size * i
+            pygame.draw.line(
+                background, grid_color, (0, y), (self.grid.width, y)
+            )
+    
 
 window = Window(WINDOW_WIDTH,WINDOW_HEIGHT)
 grid = Grid(GRID_WIDTH,GRID_HEIGHT)
 juego = Juego(window,grid,TILE_SIZE)
-
-def draw_grid(background):
-    """Draw the background grid."""
-    grid_color = 50, 50, 50
-    # Vertical lines.
-    for i in range(11):
-        x = TILE_SIZE * i
-        pygame.draw.line(
-            background, grid_color, (x, 0), (x, GRID_HEIGHT)
-        )
-    # Horizontal liens.
-    for i in range(21):
-        y = TILE_SIZE * i
-        pygame.draw.line(
-            background, grid_color, (0, y), (GRID_WIDTH, y)
-        )
-
 
 def draw_centered_surface(screen, surface, y):
     screen.blit(surface, (400 - surface.get_width()/2, y))
@@ -74,7 +77,7 @@ def main():
     bgcolor = (0, 0, 0)
     background.fill(bgcolor)
     # Draw the grid on top of the background.
-    draw_grid(background)
+    juego.draw_grid(background)
     # This makes blitting faster.
     background = background.convert()
     
@@ -97,7 +100,7 @@ def main():
     EVENT_UPDATE_CURRENT_BLOCK = pygame.USEREVENT + 1
     EVENT_MOVE_CURRENT_BLOCK = pygame.USEREVENT + 2
     pygame.time.set_timer(EVENT_UPDATE_CURRENT_BLOCK, 1000)
-    pygame.time.set_timer(EVENT_MOVE_CURRENT_BLOCK, 100)
+    pygame.time.set_timer(EVENT_MOVE_CURRENT_BLOCK, 30)
     
     blocks = BlocksGroup(juego)
     
