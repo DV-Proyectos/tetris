@@ -108,10 +108,7 @@ class Block(pygame.sprite.Sprite):
         after the surface is created or update.
         """
         self.mask = pygame.mask.from_surface(self.image)
-    
-    def initial_draw(self):
-        raise NotImplementedError
-    
+        
     @property
     def group(self):
         return self.groups()[0]
