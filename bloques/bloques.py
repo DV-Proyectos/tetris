@@ -183,26 +183,23 @@ class SBlock(Block):
 class BlocksGroup(pygame.sprite.OrderedUpdates):
     bolsa = []
     bolsa_vacia = True
+    bloque = None
     @staticmethod
     def get_random_block(juego):
         if BlocksGroup.bolsa_vacia:
             BlocksGroup.bolsa_vacia = False
             BlocksGroup.bolsa = [OBlock, TBlock, IBlock, LBlock, JBlock, ZBlock, SBlock]
             random.shuffle(BlocksGroup.bolsa)
-            bloque = BlocksGroup.bolsa[0](juego)
+            BlocksGroup.bloque = BlocksGroup.bolsa[0](juego)
             BlocksGroup.bolsa.pop(0)
-            return bloque
         else:
             if len(BlocksGroup.bolsa) <= 0:
                 BlocksGroup.bolsa_vacia = True
                 BlocksGroup.get_random_block(juego)
             else:
-                bloque = BlocksGroup.bolsa[0](juego)
+                BlocksGroup.bloque = BlocksGroup.bolsa[0](juego)
                 BlocksGroup.bolsa.pop(0)
-                return bloque
-
-        return random.choice(
-            (OBlock, TBlock, IBlock, LBlock, JBlock, ZBlock, SBlock))(juego)
+        return BlocksGroup.bloque
     
     def __init__(self,juego, *args, **kwargs):
         super().__init__(self, *args, **kwargs)
@@ -238,7 +235,7 @@ class BlocksGroup(pygame.sprite.OrderedUpdates):
                         # Once removed, check if we have empty columns
                         # since they need to be dropped.
                         block.struct, x_offset = \
-                            self.remove_empty_columns(block.struct)
+                            remove_empty_columns(block.struct)
                         # Compensate the space gone with the columns to
                         # keep the block's original position.
                         block.x += x_offset
@@ -344,21 +341,21 @@ class BlocksGroup(pygame.sprite.OrderedUpdates):
             self.current_block.rotate(self)
             self.update_grid()
 
-    def remove_empty_columns(self, arr, _x_offset=0, _keep_counting=True):
-        """
-        Remove empty columns from arr (i.e. those filled with zeros).
-        The return value is (new_arr, x_offset), where x_offset is how
-        much the x coordinate needs to be increased in order to maintain
-        the block's original position.
-        """
-        for colid, col in enumerate(arr.T):
-            if col.max() == 0:
-                if _keep_counting:
-                    _x_offset += 1
-                # Remove the current column and try again.
-                arr, _x_offset = self.remove_empty_columns(
-                    np.delete(arr, colid, 1), _x_offset, _keep_counting)
-                break
-            else:
-                _keep_counting = False
-        return arr, _x_offset
+def remove_empty_columns(arr, _x_offset=0, _keep_counting=True):
+    """
+    Remove empty columns from arr (i.e. those filled with zeros).
+    The return value is (new_arr, x_offset), where x_offset is how
+    much the x coordinate needs to be increased in order to maintain
+    the block's original position.
+    """
+    for colid, col in enumerate(arr.T):
+        if col.max() == 0:
+            if _keep_counting:
+                _x_offset += 1
+            # Remove the current column and try again.
+            arr, _x_offset = remove_empty_columns(
+                np.delete(arr, colid, 1), _x_offset, _keep_counting)
+            break
+        else:
+            _keep_counting = False
+    return arr, _x_offset
