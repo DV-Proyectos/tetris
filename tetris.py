@@ -6,56 +6,18 @@
     Copyright (C) 2018 Recursos Python - recursospython.com.
 """
 
-from collections import OrderedDict
-import random
-
-from pygame import Rect
 import pygame
 import numpy as np
 
-#Importamos las excepciones
+#Importamos los modulos
 from excepciones.excepciones import *
 from colores.colores import *
 from bloques.bloques import BlocksGroup
+from juego.juego import *
 
 WINDOW_WIDTH, WINDOW_HEIGHT = 500, 601
 GRID_WIDTH, GRID_HEIGHT = 300, 600
 TILE_SIZE = 30
-
-class Window():
-    def __init__(self, width, height):
-        self.width = width
-        self.height = height
-
-class Grid():
-    def __init__(self, width, height):
-        self.width = width
-        self.height = height    
-
-class Juego():
- 
-    def __init__(self, window, grid, title_size):
-        self.window = window
-        self.grid = grid
-        self.title_size = title_size
-        self.COLUMNAS = 10
-        self.FILAS = 20
-
-    def draw_grid(self, background):
-        """Draw the background grid."""
-        grid_color = gris
-        # Vertical lines.
-        for i in range(self.COLUMNAS+1):
-            x = self.title_size * i
-            pygame.draw.line(
-                background, grid_color, (x, 0), (x, self.grid.height)
-            )
-        # Horizontal liens.
-        for i in range(self.FILAS+1):
-            y = self.title_size * i
-            pygame.draw.line(
-                background, grid_color, (0, y), (self.grid.width, y)
-            )
     
 juego = Juego(Window(WINDOW_WIDTH,WINDOW_HEIGHT),Grid(GRID_WIDTH,GRID_HEIGHT),TILE_SIZE)
 
@@ -141,7 +103,7 @@ def main():
         draw_centered_surface(screen, blocks.next_block.image, 100)
         draw_centered_surface(screen, score_msg_text, 240)
         score_text = font.render(
-            str(blocks.score), True, (255, 255, 255), bgcolor)
+            str(blocks.score), True, blanco, bgcolor)
         draw_centered_surface(screen, score_text, 270)
         if paused:
             draw_centered_surface(screen, paused_text, 360)

@@ -26,7 +26,6 @@ class Block(pygame.sprite.Sprite):
     def __init__(self,juego):
         super().__init__()
         self.juego = juego
-        # Get a random color.
         self.current = True
         self.struct = np.array(self.struct)
         self._draw()
@@ -182,9 +181,26 @@ class SBlock(Block):
     )
 
 class BlocksGroup(pygame.sprite.OrderedUpdates):
-    
+    bolsa = []
+    bolsa_vacia = True
     @staticmethod
     def get_random_block(juego):
+        if BlocksGroup.bolsa_vacia:
+            BlocksGroup.bolsa_vacia = False
+            BlocksGroup.bolsa = [OBlock, TBlock, IBlock, LBlock, JBlock, ZBlock, SBlock]
+            random.shuffle(BlocksGroup.bolsa)
+            bloque = BlocksGroup.bolsa[0](juego)
+            BlocksGroup.bolsa.pop(0)
+            return bloque
+        else:
+            if len(BlocksGroup.bolsa) <= 0:
+                BlocksGroup.bolsa_vacia = True
+                BlocksGroup.get_random_block(juego)
+            else:
+                bloque = BlocksGroup.bolsa[0](juego)
+                BlocksGroup.bolsa.pop(0)
+                return bloque
+
         return random.choice(
             (OBlock, TBlock, IBlock, LBlock, JBlock, ZBlock, SBlock))(juego)
     
@@ -324,7 +340,7 @@ class BlocksGroup(pygame.sprite.OrderedUpdates):
     
     def rotate_current_block(self):
         # Prevent SquareBlocks rotation.
-        if not isinstance(self.current_block, SquareBlock):
+        if not isinstance(self.current_block, OBlock):
             self.current_block.rotate(self)
             self.update_grid()
 
