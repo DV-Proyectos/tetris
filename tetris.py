@@ -414,6 +414,8 @@ def main():
         "Puntaje:", True, (255, 255, 255), bgcolor)
     game_over_text = font.render(
         "¡Juego terminado!", True, (255, 220, 0), bgcolor)
+    paused_text = font.render(
+        "¡Juego pausado!", True, (255, 220, 0), bgcolor)
     
     # Event constants.
     MOVEMENT_KEYS = pygame.K_LEFT, pygame.K_RIGHT, pygame.K_DOWN
@@ -465,6 +467,8 @@ def main():
         score_text = font.render(
             str(blocks.score), True, (255, 255, 255), bgcolor)
         draw_centered_surface(screen, score_text, 270)
+        if paused:
+            draw_centered_surface(screen, paused_text, 360)
         if game_over:
             draw_centered_surface(screen, game_over_text, 360)
         # Update.
