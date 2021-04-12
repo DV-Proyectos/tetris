@@ -257,7 +257,7 @@ class BlocksGroup(pygame.sprite.OrderedUpdates):
                 break
     
     def _reset_grid(self):
-        self.grid = [[0 for _ in range(self.juego.COLUMNAS+1)] for _ in range(self.juego.FILAS+1)]
+        self.grid = [[0 for _ in range(self.juego.COLUMNAS)] for _ in range(self.juego.FILAS)]
     
     def _create_new_block(self):
         new_block = self.next_block or BlocksGroup.get_random_block(self.juego)

@@ -56,10 +56,7 @@ class Juego():
                 background, grid_color, (0, y), (self.grid.width, y)
             )
     
-
-window = Window(WINDOW_WIDTH,WINDOW_HEIGHT)
-grid = Grid(GRID_WIDTH,GRID_HEIGHT)
-juego = Juego(window,grid,TILE_SIZE)
+juego = Juego(Window(WINDOW_WIDTH,WINDOW_HEIGHT),Grid(GRID_WIDTH,GRID_HEIGHT),TILE_SIZE)
 
 def draw_centered_surface(screen, surface, y):
     screen.blit(surface, (400 - surface.get_width()/2, y))
@@ -100,7 +97,7 @@ def main():
     EVENT_UPDATE_CURRENT_BLOCK = pygame.USEREVENT + 1
     EVENT_MOVE_CURRENT_BLOCK = pygame.USEREVENT + 2
     pygame.time.set_timer(EVENT_UPDATE_CURRENT_BLOCK, 1000)
-    pygame.time.set_timer(EVENT_MOVE_CURRENT_BLOCK, 30)
+    pygame.time.set_timer(EVENT_MOVE_CURRENT_BLOCK, 100)
     
     blocks = BlocksGroup(juego)
     
