@@ -15,6 +15,7 @@ import numpy as np
 
 #Importamos las excepciones
 from excepciones.excepciones import *
+from colores.colores import *
 from bloques.bloques import BlocksGroup
 
 WINDOW_WIDTH, WINDOW_HEIGHT = 500, 601
@@ -42,7 +43,7 @@ class Juego():
 
     def draw_grid(self, background):
         """Draw the background grid."""
-        grid_color = 50, 50, 50
+        grid_color = gris
         # Vertical lines.
         for i in range(self.COLUMNAS+1):
             x = self.title_size * i
@@ -71,7 +72,7 @@ def main():
     game_over = False
     # Create background.
     background = pygame.Surface(screen.get_size())
-    bgcolor = (0, 0, 0)
+    bgcolor = negro
     background.fill(bgcolor)
     # Draw the grid on top of the background.
     juego.draw_grid(background)
@@ -84,20 +85,20 @@ def main():
         # If the font file is not available, the default will be used.
         pass
     next_block_text = font.render(
-        "Siguiente figura:", True, (255, 255, 255), bgcolor)
+        "Siguiente figura:", True, blanco, bgcolor)
     score_msg_text = font.render(
-        "Puntaje:", True, (255, 255, 255), bgcolor)
+        "Puntaje:", True, blanco, bgcolor)
     game_over_text = font.render(
-        "¡Juego terminado!", True, (255, 220, 0), bgcolor)
+        "¡Juego terminado!", True, amarillo, bgcolor)
     paused_text = font.render(
-        "¡Juego pausado!", True, (255, 220, 0), bgcolor)
+        "¡Juego pausado!", True, amarillo, bgcolor)
     
     # Event constants.
     MOVEMENT_KEYS = pygame.K_LEFT, pygame.K_RIGHT, pygame.K_DOWN
     EVENT_UPDATE_CURRENT_BLOCK = pygame.USEREVENT + 1
     EVENT_MOVE_CURRENT_BLOCK = pygame.USEREVENT + 2
     pygame.time.set_timer(EVENT_UPDATE_CURRENT_BLOCK, 1000)
-    pygame.time.set_timer(EVENT_MOVE_CURRENT_BLOCK, 100)
+    pygame.time.set_timer(EVENT_MOVE_CURRENT_BLOCK, 50)
     
     blocks = BlocksGroup(juego)
     

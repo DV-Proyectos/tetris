@@ -4,7 +4,8 @@ import pygame
 from pygame import Rect
 import numpy as np
 
-from excepciones.excepciones import BottomReached, TopReached
+from excepciones.excepciones import *
+from colores.colores import *
 
 class Block(pygame.sprite.Sprite):
     
@@ -131,53 +132,61 @@ class Block(pygame.sprite.Sprite):
         if self.current:
             self.move_down()
 
-
-class SquareBlock(Block):
-    color = (255, 255, 0)
+class OBlock(Block):
+    color = amarillo
     struct = (
         (1, 1),
         (1, 1),
     )
 
-
 class TBlock(Block):
-    color = (102, 0, 255)
+    color = violeta
     struct = (
         (0, 1, 0),
         (1, 1, 1),
     )
 
-
-class LineBlock(Block):
-    color = (0, 255, 255)
+class IBlock(Block):
+    color = celeste
     struct = (
         (1, 1, 1, 1),
 
     )
-
 
 class LBlock(Block):
-    color = (0, 0, 255)
+    color = azul
     struct = (
-        (1, 0, 0, 0),
-        (1, 1, 1, 1),
+        (1, 0, 0),
+        (1, 1, 1),
     )
 
-
+class JBlock(Block):
+    color = naranja
+    struct = (
+        (0, 0, 1),
+        (1, 1, 1),
+    )
+    
 class ZBlock(Block):
-    color = (0, 255, 0)
+    color = rojo
     struct = (
         (1, 1, 0),
         (0, 1, 1),
     )
 
+class SBlock(Block):
+    color = verde
+    struct = (
+        (0, 1, 1),
+        (1, 1, 0),
+    )
 
 class BlocksGroup(pygame.sprite.OrderedUpdates):
     
     @staticmethod
     def get_random_block(juego):
         return random.choice(
-            (SquareBlock, TBlock, LineBlock, LBlock, ZBlock))(juego)
+            (OBlock, TBlock, IBlock, LBlock, JBlock, ZBlock, SBlock))(juego)
     
     def __init__(self,juego, *args, **kwargs):
         super().__init__(self, *args, **kwargs)
