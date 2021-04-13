@@ -56,7 +56,7 @@ def main():
         "¡Juego pausado!", True, amarillo, bgcolor)
     
     # Event constants.
-    MOVEMENT_KEYS = pygame.K_LEFT, pygame.K_RIGHT, pygame.K_DOWN
+    MOVEMENT_KEYS = pygame.K_LEFT, pygame.K_RIGHT, pygame.K_DOWN, pygame.K_SPACE
     EVENT_UPDATE_CURRENT_BLOCK = pygame.USEREVENT + 1
     EVENT_MOVE_CURRENT_BLOCK = pygame.USEREVENT + 2
     pygame.time.set_timer(EVENT_UPDATE_CURRENT_BLOCK, 1000)
@@ -81,11 +81,16 @@ def main():
             # Stop moving blocks if the game is over or paused.
             if game_over or paused:
                 continue
-            
+
+
             if event.type == pygame.KEYDOWN:
                 if event.key in MOVEMENT_KEYS:
                     blocks.start_moving_current_block(event.key)
-            
+                if event.key == pygame.K_SPACE:
+                    pygame.time.set_timer(EVENT_MOVE_CURRENT_BLOCK, 1) 
+                else: 
+                    pygame.time.set_timer(EVENT_MOVE_CURRENT_BLOCK, 50) 
+
             try:
                 if event.type == EVENT_UPDATE_CURRENT_BLOCK:
                     blocks.update_current_block()

@@ -311,6 +311,7 @@ class BlocksGroup(pygame.sprite.OrderedUpdates):
             return
         action = {
             pygame.K_DOWN: self.current_block.move_down,
+            pygame.K_SPACE: self.current_block.move_down,
             pygame.K_LEFT: self.current_block.move_left,
             pygame.K_RIGHT: self.current_block.move_right
         }
