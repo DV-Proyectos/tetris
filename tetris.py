@@ -15,6 +15,13 @@ from colores.colores import *
 from bloques.bloques import BlocksGroup
 from juego.juego import *
 
+image_play = pygame.image.load('imagenes/play.png')
+image_pause = pygame.image.load('imagenes/pause.png')
+image_retry = pygame.image.load('imagenes/retry.png')
+image_mute = pygame.image.load('imagenes/mute.png')
+image_volume = pygame.image.load('imagenes/volume.png')
+image_exit = pygame.image.load('imagenes/exit.png')
+
 WINDOW_WIDTH, WINDOW_HEIGHT = 500, 601
 GRID_WIDTH, GRID_HEIGHT = 300, 600
 TILE_SIZE = 30
@@ -32,6 +39,7 @@ def main():
     run = True
     paused = False
     game_over = False
+    volume = True
     # Create background.
     background = pygame.Surface(screen.get_size())
     bgcolor = negro
@@ -42,18 +50,24 @@ def main():
     background = background.convert()
     
     try:
-        font = pygame.font.Font("Roboto-Regular.ttf", 20)
+        font = pygame.font.Font("8-bit-blanco.ttf", 24)
     except OSError:
         # If the font file is not available, the default will be used.
         pass
     next_block_text = font.render(
-        "Siguiente figura:", True, blanco, bgcolor)
+        "Siguiente figura", True, blanco, bgcolor)
     score_msg_text = font.render(
-        "Puntaje:", True, blanco, bgcolor)
+        "Puntaje", True, blanco, bgcolor)
     game_over_text = font.render(
-        "¡Juego terminado!", True, amarillo, bgcolor)
+        "Juego terminado", True, rojo, bgcolor)
     paused_text = font.render(
-        "¡Juego pausado!", True, amarillo, bgcolor)
+        "Juego pausado", True, amarillo, bgcolor)
+    boton_pausa = Boton((400 - image_pause.get_width()/2)-50,360,image_pause)    
+    boton_play = Boton((400 - image_play.get_width()/2)-50,360,image_play)    
+    boton_mute = Boton((400 - image_mute.get_width()/2)+50,365,image_mute)    
+    boton_volume = Boton((400 - image_volume.get_width()/2)+50,365,image_volume)    
+    boton_retry = Boton((400 - image_retry.get_width()/2)-45,490,image_retry)    
+    boton_exit = Boton((400 - image_exit.get_width()/2)+45,500,image_exit)    
     
     # Event constants.
     MOVEMENT_KEYS = pygame.K_LEFT, pygame.K_RIGHT, pygame.K_DOWN, pygame.K_SPACE
@@ -75,14 +89,13 @@ def main():
                         blocks.stop_moving_current_block()
                     elif event.key == pygame.K_UP:
                         blocks.rotate_current_block()
+                
                 if event.key == pygame.K_p:
-                    paused = not paused
-            
+                    if not game_over:
+                        paused = not paused
             # Stop moving blocks if the game is over or paused.
             if game_over or paused:
-                continue
-
-
+                continue     
             if event.type == pygame.KEYDOWN:
                 if event.key in MOVEMENT_KEYS:
                     blocks.start_moving_current_block(event.key)
@@ -110,10 +123,25 @@ def main():
         score_text = font.render(
             str(blocks.score), True, blanco, bgcolor)
         draw_centered_surface(screen, score_text, 270)
+        if boton_exit.draw(screen): 
+            break
+        if volume:
+            if boton_volume.draw(screen):
+                volume = False
+        else:
+            if boton_mute.draw(screen):
+                volume = True
         if paused:
-            draw_centered_surface(screen, paused_text, 360)
+            draw_centered_surface(screen, paused_text, 330)
+            if boton_play.draw(screen) and not game_over:
+                paused = not paused
+        else: 
+            if boton_pausa.draw(screen) and not game_over:
+                paused = not paused
         if game_over:
-            draw_centered_surface(screen, game_over_text, 360)
+            draw_centered_surface(screen, game_over_text, 450)
+            if boton_retry.draw(screen):
+                main()
         # Update.
         pygame.display.flip()
     
