@@ -5,7 +5,7 @@ import pygame
 import sys
 import numpy as np
 import tetris  #importamos los metodos del otro archivo 
-
+import creditos
 
 
 pygame.init()
@@ -83,6 +83,7 @@ quit_boton = Boton(190 , 490, salir_img)
 
 menu = True
 run = True
+
 #Dentro de este while se va a correr todo el codigo del pygame
 while run:
     
@@ -97,7 +98,7 @@ while run:
     opciones_boton.draw()
     
     if creditos_boton.draw():
-       credito = CreditsMenu(game).display_menu()
+      creditos.mostrarCreditos()
 
     if quit_boton.draw():
         run = False

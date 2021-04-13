@@ -6,22 +6,6 @@ import sys
 import numpy as np
 
 
-WINDOW_WIDTH2, WINDOW_HEIGHT2 = 600, 600
-tile_size = 50
-
-#Creo la ventana
-ventana = pygame.display.set_mode((WINDOW_WIDTH2, WINDOW_HEIGHT2))
-pygame.display.set_caption("Creditos :) ")
-fondo = pygame.image.load("imagenes/fondotetris.png").convert()
-
-# Creamos la fuente de nuestra pantalla
-# Creamos un objeto fuente 
-
-
-#cargamos las imagenes para los botones
-volver_img = pygame.image.load('imagenes/volver.png')
-
-
 #Creamos una clase boton
 class Boton():
 	def __init__(self, x, y, image):
@@ -52,37 +36,49 @@ class Boton():
 
 		return action
 
-# Creamos los botones para interactuar con la ventana
-#restart_button = Boton(100, 250, start_img)
-volver_boton = Boton(175, 250 , volver_img)
+#----------------------------------------------------------------------------------#
 
-#Declaramos una variable cualquiera, en este caso run 
+	WINDOW_WIDTH2, WINDOW_HEIGHT2 = 600, 600
+	tile_size = 50
 
-def main():
- run = True 
- pygame.init()
+def mostrarCreditos():
+ 	pygame.init() 
+	
+	#Creo la ventana
+ 	ventana = pygame.display.set_mode((WINDOW_WIDTH2, WINDOW_HEIGHT2))
+	pygame.display.set_caption("Creditos :) ")
+		fondo = pygame.image.load("imagenes/fondotetris.png").convert()
 
- 
+	#cargamos las imagenes para los botones
+		volver_img = pygame.image.load('imagenes/volver.png') 
 
-#Dentro de este while se va a correr todo el codigo del pygame
- while run:
-    
+	# Creamos la fuente de nuestra pantalla
+	# Creamos un objeto fuente 
 
-    ventana.blit(fondo, [0,0])
+	# Creamos los botones para interactuar con la ventana
+	#restart_button = Boton(100, 250, start_img)
+		volver_boton = Boton(175, 250 , volver_img)
 
-    if volver_boton.draw():
-        run = False
+		run = True 
+	#Dentro de este while se va a correr todo el codigo del pygame
+		while run:
+			
 
-# Esto sirve para que cuando 
-# se ejecute el programa no se cuelgue la ventana.
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
+			ventana.blit(fondo, [0,0])
 
-    pygame.display.update()
+			if volver_boton.draw():
+					run = False
+					pygame.display.flip()
+			# Esto sirve para que cuando 
+			# se ejecute el programa no se cuelgue la ventana.
+			for event in pygame.event.get():
+					if event.type == pygame.QUIT:
+						pygame.quit()
+						sys.exit()
 
-pygame.quit()
+			pygame.display.update()
+
+		pygame.quit()
 
 
 
