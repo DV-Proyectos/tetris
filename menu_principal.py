@@ -64,57 +64,48 @@ class Boton():
 archivo = open("creditos.txt","r")
 contenido = archivo.read()
 
-#creamos la funcion para los creditos
-def creditos():
-	creditos = True
-	while entrada:
-		ventana.fill(black)
-		mensaje()
 
+def mostrar_menu():
+	# Creamos los botones para interactuar con la ventana
+	#restart_button = Boton(100, 250, start_img)
+	start_boton = Boton(175, 250 , start_img)
+	opciones_boton = Boton(120, 330, opciones_img)
+	creditos_boton = Boton(125,410, creditos_img)
+	quit_boton = Boton(190 , 490, salir_img)
 
-# Creamos los botones para interactuar con la ventana
-#restart_button = Boton(100, 250, start_img)
-start_boton = Boton(175, 250 , start_img)
-opciones_boton = Boton(120, 330, opciones_img)
-creditos_boton = Boton(125,410, creditos_img)
-quit_boton = Boton(190 , 490, salir_img)
+	#Declaramos una variable cualquiera, en este caso run 
+	menu = True
+	run = True
 
-#Declaramos una variable cualquiera, en este caso run 
+	#Dentro de este while se va a correr todo el codigo del pygame
+	while run:
+		#ventana.blit(miTexto, (200,100))
+		#ventana.blit(miTexto2, (200,200))
+		ventana.blit(fondo, [0,0])
 
-menu = True
-run = True
+		if start_boton.draw():
+			tetris.main()
+			
+		opciones_boton.draw()
+		
+		if creditos_boton.draw():
+			creditos.mostrar_creditos()
 
-#Dentro de este while se va a correr todo el codigo del pygame
-while run:
-    
+		if quit_boton.draw():
+			run = False
 
-    #ventana.blit(miTexto, (200,100))
-    #ventana.blit(miTexto2, (200,200))
-    ventana.blit(fondo, [0,0])
+	# Esto sirve para que cuando 
+	# se ejecute el programa no se cuelgue la ventana.
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				pygame.quit()
+				sys.exit()
 
-    if start_boton.draw():
-        tetris.main()
-        
-    opciones_boton.draw()
-    
-    if creditos_boton.draw():
-      creditos.mostrarCreditos()
+		pygame.display.update()
+	pygame.quit()
 
-    if quit_boton.draw():
-        run = False
-
-# Esto sirve para que cuando 
-# se ejecute el programa no se cuelgue la ventana.
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-            sys.exit()
-
-    pygame.display.update()
-
-pygame.quit()
-
-
+if __name__ == "__main__":
+    mostrar_menu()
 
 
 

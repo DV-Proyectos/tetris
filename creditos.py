@@ -1,9 +1,7 @@
-from pygame.locals import *
-
-from pygame import Rect
 import pygame
 import sys
 import numpy as np
+import menu_principal
 
 
 #Creamos una clase boton
@@ -15,7 +13,7 @@ class Boton():
 		self.rect.y = y
 		self.clicked = False
 
-	def draw(self):
+	def draw(self,ventana):
 		action = False
 
 		#get mouse position
@@ -38,48 +36,43 @@ class Boton():
 
 #----------------------------------------------------------------------------------#
 
-	WINDOW_WIDTH2, WINDOW_HEIGHT2 = 600, 600
-	tile_size = 50
+WINDOW_WIDTH2, WINDOW_HEIGHT2 = 600, 600
+tile_size = 50
 
-def mostrarCreditos():
- 	pygame.init() 
-	
-	#Creo la ventana
- 	ventana = pygame.display.set_mode((WINDOW_WIDTH2, WINDOW_HEIGHT2))
-	pygame.display.set_caption("Creditos :) ")
-		fondo = pygame.image.load("imagenes/fondotetris.png").convert()
+def mostrar_creditos():
+	pygame.init()
+	pygame.display.set_caption("Creditos:)")
+	ventana = pygame.display.set_mode((WINDOW_WIDTH2, WINDOW_HEIGHT2))
+	fondo = pygame.image.load("imagenes/fondotetris.png").convert()
 
 	#cargamos las imagenes para los botones
-		volver_img = pygame.image.load('imagenes/volver.png') 
+	volver_img = pygame.image.load('imagenes/volver.png') 
 
 	# Creamos la fuente de nuestra pantalla
 	# Creamos un objeto fuente 
 
 	# Creamos los botones para interactuar con la ventana
 	#restart_button = Boton(100, 250, start_img)
-		volver_boton = Boton(175, 250 , volver_img)
-
-		run = True 
+	volver_boton = Boton(175, 250 , volver_img)
+	run = True 
 	#Dentro de este while se va a correr todo el codigo del pygame
-		while run:
-			
+	while run:
+		for event in pygame.event.get():
+			if event.type == pygame.QUIT:
+				pygame.quit()
+				sys.exit()
+		ventana.blit(fondo, [0,0])
+		if volver_boton.draw(ventana):
+			menu_principal.mostrar_menu()
+			pygame.quit()
+		# Esto sirve para que cuando 
+		# se ejecute el programa no se cuelgue la ventana.
+		pygame.display.update()
 
-			ventana.blit(fondo, [0,0])
+	pygame.quit()
 
-			if volver_boton.draw():
-					run = False
-					pygame.display.flip()
-			# Esto sirve para que cuando 
-			# se ejecute el programa no se cuelgue la ventana.
-			for event in pygame.event.get():
-					if event.type == pygame.QUIT:
-						pygame.quit()
-						sys.exit()
-
-			pygame.display.update()
-
-		pygame.quit()
-
+if __name__ == "__main__":
+    mostrar_creditos()
 
 
 
