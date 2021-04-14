@@ -1,21 +1,20 @@
-from pygame.locals import *
-
 from pygame import Rect
 import pygame
 import sys
 import numpy as np
 import tetris  #importamos los metodos del otro archivo 
 import creditos
+import opciones
 
 
 pygame.init()
-WINDOW_WIDTH, WINDOW_HEIGHT = 600, 600
-tile_size = 50
+#WINDOW_WIDTH, WINDOW_HEIGHT = 600, 600
+#tile_size = 50
 
 #Creo la ventana
-ventana = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
-pygame.display.set_caption("TETRIS")
-fondo = pygame.image.load("imagenes/fondotetris.png").convert()
+#ventana = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+#pygame.display.set_caption("TETRIS")
+#fondo = pygame.image.load("imagenes/fondotetris.png").convert()
 
 # Creamos la fuente de nuestra pantalla
 # Creamos un objeto fuente 
@@ -38,7 +37,7 @@ class Boton():
 		self.rect.y = y
 		self.clicked = False
 
-	def draw(self):
+	def draw(self,ventana):
 		action = False
 
 		#get mouse position
@@ -58,7 +57,7 @@ class Boton():
 		ventana.blit(self.image, self.rect)
 
 		return action
-
+#-----------------------------------------------------------------------------------#
 
 #Leer archivo desde funcion
 archivo = open("creditos.txt","r")
@@ -66,32 +65,42 @@ contenido = archivo.read()
 
 
 def mostrar_menu():
-	# Creamos los botones para interactuar con la ventana
-	#restart_button = Boton(100, 250, start_img)
+
+	pygame.init()
+	WINDOW_WIDTH, WINDOW_HEIGHT = 600, 600
+	tile_size = 50
+
+#Creo la ventana
+	ventana = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+	pygame.display.set_caption("TETRIS")
+	fondo = pygame.image.load("imagenes/fondotetris.png").convert()
+	
 	start_boton = Boton(175, 250 , start_img)
 	opciones_boton = Boton(120, 330, opciones_img)
 	creditos_boton = Boton(125,410, creditos_img)
 	quit_boton = Boton(190 , 490, salir_img)
 
 	#Declaramos una variable cualquiera, en este caso run 
-	menu = True
 	run = True
 
 	#Dentro de este while se va a correr todo el codigo del pygame
 	while run:
-		#ventana.blit(miTexto, (200,100))
-		#ventana.blit(miTexto2, (200,200))
+	
 		ventana.blit(fondo, [0,0])
 
-		if start_boton.draw():
+		if start_boton.draw(ventana):
 			tetris.main()
+			break
 			
-		opciones_boton.draw()
-		
-		if creditos_boton.draw():
-			creditos.mostrar_creditos()
+		if opciones_boton.draw(ventana):
+			opciones.mostrar_opciones()
+			break
 
-		if quit_boton.draw():
+		if creditos_boton.draw(ventana):
+			creditos.mostrar_creditos()
+			break
+
+		if quit_boton.draw(ventana):
 			run = False
 
 	# Esto sirve para que cuando 
