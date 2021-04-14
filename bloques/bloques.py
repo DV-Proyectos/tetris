@@ -255,6 +255,8 @@ class BlocksGroup(pygame.sprite.OrderedUpdates):
                     # Pull down each block until it reaches the
                     # bottom or collides with another block.
                     while True:
+                        if Block.collide(block, self):
+                            break
                         try:
                             block.move_down(self)
                         except BottomReached:
