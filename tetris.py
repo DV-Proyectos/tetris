@@ -142,6 +142,7 @@ def main():
             draw_centered_surface(screen, game_over_text, 450)
             if boton_retry.draw(screen):
                 main()
+                break
         # Update.
         pygame.display.flip()
     
