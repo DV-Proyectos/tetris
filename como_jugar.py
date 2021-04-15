@@ -12,7 +12,7 @@ def mostrar_como_jugar():
 	ventana = pygame.display.set_mode((WINDOW_WIDTH2, WINDOW_HEIGHT2))	
 
 	#cargamos la fuente tipo arcade
-	letra_arcade = pygame.font.Font("ka1.ttf", 30)
+	letra_arcade = pygame.font.Font("fuentes/ka1.ttf", 30)
 	
 	#creamos los textos
 	letra = letra_arcade.render("TECLAS DEL JUEGO", 0, blanco)

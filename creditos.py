@@ -15,7 +15,7 @@ def mostrar_creditos():
 	fondo = pygame.image.load("imagenes/fondotetris.png").convert()
 	
 	#cargamos la fuente tipo arcade
-	letra_arcade = pygame.font.Font("ka1.ttf", 16)
+	letra_arcade = pygame.font.Font("fuentes/ka1.ttf", 16)
 	
 	#creamos los textos
 	letra = letra_arcade.render("Proyecto para la materia de Ingracion Tecnologica", 0, blanco,(0,0,0))

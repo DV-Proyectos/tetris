@@ -230,6 +230,10 @@ class BlocksGroup(pygame.sprite.OrderedUpdates):
                 for block, y_offset in affected_blocks:
                     # Remove the block tiles which belong to the
                     # completed line.
+                    self.track = pygame.mixer.Channel(2)
+                    self.sonidoLineaCompleta = pygame.mixer.Sound("sounds/completo.mp3")
+                    self.track.set_volume(0.3)
+                    self.track.play(self.sonidoLineaCompleta,0)
                     block.struct = np.delete(block.struct, y_offset, 0)
                     if block.struct.any():
                         # Once removed, check if we have empty columns

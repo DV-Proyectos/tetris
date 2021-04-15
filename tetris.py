@@ -32,6 +32,7 @@ def draw_centered_surface(screen, surface, y):
     screen.blit(surface, (400 - surface.get_width()/2, y))
 
 
+
 def main():
     
     pygame.init()
@@ -45,14 +46,22 @@ def main():
     background = pygame.Surface(screen.get_size())
     bgcolor = negro
     background.fill(bgcolor)
+
+    track = pygame.mixer.Channel(0)
+    track.set_volume(0.25)
+    misc_sound = pygame.mixer.Channel(1)
+    main_track = pygame.mixer.Sound('sounds/musica.mp3')
+    drop_audio = pygame.mixer.Sound('sounds/drop.wav')
+    lose_track = pygame.mixer.Sound('sounds/lose.mp3')
+    track.play(main_track,-1)
     # Draw the grid on top of the background.
     juego.draw_grid(background)
     # This makes blitting faster.
     background = background.convert()
-    
+
     try:
-        font = pygame.font.Font("8-bit-blanco.ttf", 24)
-        font_score = pygame.font.Font("8-bit-blanco.ttf", 32)
+        font = pygame.font.Font("fuentes/8-bit-blanco.ttf", 24)
+        font_score = pygame.font.Font("fuentes/8-bit-blanco.ttf", 32)
     except OSError:
         # If the font file is not available, the default will be used.
         pass
@@ -61,13 +70,11 @@ def main():
     score_msg_text = font.render(
         "Puntaje", True, blanco, bgcolor)
     game_over_text = font.render(
-        "Juego terminado", True, rojo, bgcolor)
+        "GAME OVER", True, rojo, bgcolor)
     paused_text = font.render(
         "Juego pausado", True, amarillo, bgcolor)
-    boton_pausa = Boton((400 - image_pause.get_width()/2)-50,360,image_pause)    
-    boton_play = Boton((400 - image_play.get_width()/2)-50,360,image_play)    
+    boton_play_pause = Boton((400 - image_play.get_width()/2)-50,360,image_play)    
     boton_mute = Boton((400 - image_mute.get_width()/2)+50,365,image_mute)    
-    boton_volume = Boton((400 - image_volume.get_width()/2)+50,365,image_volume)    
     boton_retry = Boton((400 - image_retry.get_width()/2)-45,490,image_retry)    
     boton_exit = Boton((400 - image_exit.get_width()/2)+45,500,image_exit)    
     
@@ -95,6 +102,13 @@ def main():
                 if event.key == pygame.K_p:
                     if not game_over:
                         paused = not paused
+                if event.key == pygame.K_m:
+                    if volume and not game_over:
+                        track.pause()
+                    else:
+                        track.unpause()  
+                    volume = not volume  
+        
             # Stop moving blocks if the game is over or paused.
             if game_over or paused:
                 continue     
@@ -103,6 +117,7 @@ def main():
                     blocks.start_moving_current_block(event.key)
                 if event.key == pygame.K_SPACE:
                     pygame.time.set_timer(EVENT_MOVE_CURRENT_BLOCK, 1) 
+                    misc_sound.play(drop_audio,0)
                 else: 
                     pygame.time.set_timer(EVENT_MOVE_CURRENT_BLOCK, 50) 
 
@@ -113,6 +128,8 @@ def main():
                     blocks.move_current_block()
             except TopReached:
                 game_over = True
+                if volume:
+                    track.play(lose_track,-1)
         
         # Draw background and grid.
         screen.blit(background, (0, 0))
@@ -128,18 +145,26 @@ def main():
         if boton_exit.draw(screen): 
             break
         if volume:
-            if boton_volume.draw(screen):
+            boton_mute.image = image_volume
+            if boton_mute.draw(screen) and not game_over:
                 volume = False
+                track.pause()
         else:
-            if boton_mute.draw(screen):
+            boton_mute.image = image_mute
+            if boton_mute.draw(screen) and not game_over:
                 volume = True
+                track.unpause()
+
         if paused:
             draw_centered_surface(screen, paused_text, 330)
-            if boton_play.draw(screen) and not game_over:
+            boton_play_pause.image = image_play
+            if boton_play_pause.draw(screen) and not game_over:
                 paused = not paused
         else: 
-            if boton_pausa.draw(screen) and not game_over:
+            boton_play_pause.image = image_pause
+            if boton_play_pause.draw(screen) and not game_over:
                 paused = not paused
+
         if game_over:
             draw_centered_surface(screen, game_over_text, 450)
             if boton_retry.draw(screen):
