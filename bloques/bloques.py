@@ -34,7 +34,7 @@ class Block(pygame.sprite.Sprite):
         width = len(self.struct[0]) * self.juego.title_size
         height = len(self.struct) * self.juego.title_size
         self.image = pygame.surface.Surface([width, height])
-        self.image.set_colorkey((0, 0, 0))
+        self.image.set_colorkey(negro)
         # Position and size
         self.rect = Rect(0, 0, width, height)
         self.x = x

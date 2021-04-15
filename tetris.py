@@ -51,6 +51,7 @@ def main():
     
     try:
         font = pygame.font.Font("8-bit-blanco.ttf", 24)
+        font_score = pygame.font.Font("8-bit-blanco.ttf", 32)
     except OSError:
         # If the font file is not available, the default will be used.
         pass
@@ -120,7 +121,7 @@ def main():
         draw_centered_surface(screen, next_block_text, 50)
         draw_centered_surface(screen, blocks.next_block.image, 100)
         draw_centered_surface(screen, score_msg_text, 240)
-        score_text = font.render(
+        score_text = font_score.render(
             str(blocks.score), True, blanco, bgcolor)
         draw_centered_surface(screen, score_text, 270)
         if boton_exit.draw(screen): 
