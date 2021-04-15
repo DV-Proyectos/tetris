@@ -24,7 +24,9 @@ miTexto2 = miFuente.render("Opciones", 0, (255,255,255))
 
 #cargamos las imagenes para los botones
 start_img = pygame.image.load('imagenes/start.png')
-opciones_img = pygame.image.load('imagenes/opciones2.png')
+
+#opciones_img = pygame.image.load('imagenes/opciones2.png')
+comojugar_img = pygame.image.load('imagenes/comojugar.png')
 salir_img = pygame.image.load('imagenes/salir2.png')
 creditos_img = pygame.image.load('imagenes/creditos.png')
 
@@ -76,7 +78,8 @@ def mostrar_menu():
 	fondo = pygame.image.load("imagenes/fondotetris.png").convert()
 	
 	start_boton = Boton(175, 250 , start_img)
-	opciones_boton = Boton(120, 330, opciones_img)
+	#opciones_boton = Boton(120, 330, opciones_img)
+	comojugar_boton = Boton(70, 330, comojugar_img)
 	creditos_boton = Boton(125,410, creditos_img)
 	quit_boton = Boton(190 , 490, salir_img)
 
@@ -92,7 +95,7 @@ def mostrar_menu():
 			tetris.main()
 			break
 			
-		if opciones_boton.draw(ventana):
+		if  comojugar_boton.draw(ventana):
 			opciones.mostrar_opciones()
 			break
 
