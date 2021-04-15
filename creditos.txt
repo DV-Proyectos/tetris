@@ -1,0 +1,10 @@
+Este proyecto fue creado para uso educativo
+
+Integrantes del proyecto:
+
+-Chen David
+-Romero Daiana
+-Torres Maximiliano
+
+Toca la tecla X para volver al menu 
+
