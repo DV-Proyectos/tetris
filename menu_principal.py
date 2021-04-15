@@ -1,3 +1,4 @@
+import os
 import pygame
 import sys
 import tetris  #importamos los metodos del otro archivo 
@@ -8,11 +9,11 @@ from juego.juego import Boton
 
 
 #cargamos las imagenes para los botones
-start_img = pygame.image.load('imagenes/start.png')
+start_img = pygame.image.load(os.path.join('imagenes', 'start.png'))
 
-comojugar_img = pygame.image.load('imagenes/comojugar.png')
-salir_img = pygame.image.load('imagenes/salir2.png')
-creditos_img = pygame.image.load('imagenes/creditos.png')
+comojugar_img = pygame.image.load(os.path.join('imagenes', 'comojugar.png'))
+salir_img = pygame.image.load(os.path.join('imagenes', 'salir2.png'))
+creditos_img = pygame.image.load(os.path.join('imagenes', 'creditos.png'))
 
 
 def mostrar_menu():
@@ -23,7 +24,7 @@ def mostrar_menu():
 	#Creo la ventana
 	ventana = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
 	pygame.display.set_caption("TETRIS")
-	fondo = pygame.image.load("imagenes/fondotetris.png").convert()
+	fondo = pygame.image.load(os.path.join('imagenes', "fondotetris.png")).convert()
 	
 	start_boton = Boton(175, 250 , start_img)
 	comojugar_boton = Boton(70, 330, comojugar_img)

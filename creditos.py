@@ -1,3 +1,4 @@
+import os
 import pygame
 import sys
 import menu_principal
@@ -12,10 +13,10 @@ def mostrar_creditos():
 	pygame.init()
 	pygame.display.set_caption("Creditos:)")
 	ventana = pygame.display.set_mode((WINDOW_WIDTH2, WINDOW_HEIGHT2))
-	fondo = pygame.image.load("imagenes/fondotetris.png").convert()
+	fondo = pygame.image.load(os.path.join('imagenes', "fondotetris.png")).convert()
 	
 	#cargamos la fuente tipo arcade
-	letra_arcade = pygame.font.Font("fuentes/ka1.ttf", 16)
+	letra_arcade = pygame.font.Font(os.path.join('fuentes', "ka1.ttf"), 16)
 	
 	#creamos los textos
 	letra = letra_arcade.render("Proyecto para la materia de Ingracion Tecnologica", 0, blanco,(0,0,0))
@@ -46,7 +47,7 @@ def mostrar_creditos():
 	rectanguloTextoPresent5.centery = 500
 
 	#cargamos las imagenes para los botones
-	volver_img = pygame.image.load('imagenes/volver.png') 
+	volver_img = pygame.image.load(os.path.join('imagenes', 'volver.png')) 
 
 	# Creamos los botones para interactuar con la ventana
 	#restart_button = Boton(100, 250, start_img)

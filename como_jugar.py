@@ -1,3 +1,4 @@
+import os
 import pygame
 import sys
 import menu_principal
@@ -12,7 +13,7 @@ def mostrar_como_jugar():
 	ventana = pygame.display.set_mode((WINDOW_WIDTH2, WINDOW_HEIGHT2))	
 
 	#cargamos la fuente tipo arcade
-	letra_arcade = pygame.font.Font("fuentes/ka1.ttf", 30)
+	letra_arcade = pygame.font.Font(os.path.join('fuentes', "ka1.ttf"), 30)
 	
 	#creamos los textos
 	letra = letra_arcade.render("TECLAS DEL JUEGO", 0, blanco)
@@ -35,16 +36,16 @@ def mostrar_como_jugar():
 	
 
 	#cargamos las imagenes para los botones
-	volver_img = pygame.image.load('imagenes/volver.png') 
+	volver_img = pygame.image.load(os.path.join('imagenes', 'volver.png')) 
 
-	flecha_der = pygame.image.load("imagenes/flechader.png")
-	flecha_izq = pygame.image.load("imagenes/flechaizq.png")
-	flecha_up = pygame.image.load("imagenes/flechaup.png")
-	flecha_down = pygame.image.load("imagenes/flechadown.png")
+	flecha_der = pygame.image.load(os.path.join('imagenes', "flechader.png"))
+	flecha_izq = pygame.image.load(os.path.join('imagenes', "flechaizq.png"))
+	flecha_up = pygame.image.load(os.path.join('imagenes', "flechaup.png"))
+	flecha_down = pygame.image.load(os.path.join('imagenes', "flechadown.png"))
 
-	space = pygame.image.load("imagenes/space2.png")
-	tecla_p = pygame.image.load("imagenes/teclaP.png")
-	tecla_m = pygame.image.load("imagenes/teclaM.png")
+	space = pygame.image.load(os.path.join('imagenes', "space2.png"))
+	tecla_p = pygame.image.load(os.path.join('imagenes', "teclaP.png"))
+	tecla_m = pygame.image.load(os.path.join('imagenes', "teclaM.png"))
 
 
 	# Creamos los botones para interactuar con la ventana

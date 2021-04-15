@@ -5,7 +5,7 @@
     The classic Tetris developed using PyGame.
     Copyright (C) 2018 Recursos Python - recursospython.com.
 """
-
+import os
 import pygame
 import numpy as np
 
@@ -15,12 +15,12 @@ from colores.colores import *
 from bloques.bloques import BlocksGroup
 from juego.juego import *
 
-image_play = pygame.image.load('imagenes/play.png')
-image_pause = pygame.image.load('imagenes/pause.png')
-image_retry = pygame.image.load('imagenes/retry.png')
-image_mute = pygame.image.load('imagenes/mute.png')
-image_volume = pygame.image.load('imagenes/volume.png')
-image_exit = pygame.image.load('imagenes/exit.png')
+image_play = pygame.image.load(os.path.join('imagenes', 'play.png'))
+image_pause = pygame.image.load(os.path.join('imagenes', 'pause.png'))
+image_retry = pygame.image.load(os.path.join('imagenes', 'retry.png'))
+image_mute = pygame.image.load(os.path.join('imagenes', 'mute.png'))
+image_volume = pygame.image.load(os.path.join('imagenes', 'volume.png'))
+image_exit = pygame.image.load(os.path.join('imagenes', 'exit.png'))
 
 WINDOW_WIDTH, WINDOW_HEIGHT = 500, 601
 GRID_WIDTH, GRID_HEIGHT = 300, 600
@@ -50,9 +50,9 @@ def main():
     track = pygame.mixer.Channel(0)
     track.set_volume(0.25)
     misc_sound = pygame.mixer.Channel(1)
-    main_track = pygame.mixer.Sound('sounds/musica.mp3')
-    drop_audio = pygame.mixer.Sound('sounds/drop.wav')
-    lose_track = pygame.mixer.Sound('sounds/lose.mp3')
+    main_track = pygame.mixer.Sound(os.path.join('sounds', 'musica.mp3'))
+    drop_audio = pygame.mixer.Sound(os.path.join('sounds', 'drop.wav'))
+    lose_track = pygame.mixer.Sound(os.path.join('sounds', 'lose.mp3'))
     track.play(main_track,-1)
     # Draw the grid on top of the background.
     juego.draw_grid(background)
@@ -60,8 +60,8 @@ def main():
     background = background.convert()
 
     try:
-        font = pygame.font.Font("fuentes/8-bit-blanco.ttf", 24)
-        font_score = pygame.font.Font("fuentes/8-bit-blanco.ttf", 32)
+        font = pygame.font.Font(os.path.join('fuentes', '8-bit-blanco.ttf'), 24)
+        font_score = pygame.font.Font(os.path.join('fuentes', '8-bit-blanco.ttf'), 32)
     except OSError:
         # If the font file is not available, the default will be used.
         pass
