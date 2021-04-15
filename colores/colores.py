@@ -10,3 +10,4 @@ amarillo    = (255, 255, 0) # OBlock
 blanco      = (255, 255, 255)
 negro       = (0, 0, 0)
 gris        = (50, 50, 50)
+gris_claro  = (200, 200, 200)

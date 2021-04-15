@@ -1,70 +1,29 @@
 import pygame
 import sys
-import numpy as np
 import menu_principal
-
-#Creamos una clase boton
-class Boton():
-	def __init__(self, x, y, image):
-		self.image = image
-		self.rect = self.image.get_rect()
-		self.rect.x = x
-		self.rect.y = y
-		self.clicked = False
-
-	def draw(self,ventana):
-		action = False
-
-		#get mouse position
-		pos = pygame.mouse.get_pos()
-
-		#check mouseover and clicked conditions
-		if self.rect.collidepoint(pos):
-			if pygame.mouse.get_pressed()[0] == 1 and self.clicked == False:
-				action = True
-				self.clicked = True
-
-		if pygame.mouse.get_pressed()[0] == 0:
-			self.clicked = False
-
-
-		#draw button
-		ventana.blit(self.image, self.rect)
-
-		return action
-
-#----------------------------------------------------------------------------------#
-
+from juego.juego import Boton
+from colores.colores import *
 #tamaño de la ventana del pygame
 WINDOW_WIDTH2, WINDOW_HEIGHT2 = 600, 600
-tile_size = 50
 
-def mostrar_opciones():
+def mostrar_como_jugar():
 	pygame.init()
-	pygame.display.set_caption("OPCIONES")
-	ventana = pygame.display.set_mode((WINDOW_WIDTH2, WINDOW_HEIGHT2))
-	color= (200,400,20)
-	
+	pygame.display.set_caption("Cómo Jugar?")
+	ventana = pygame.display.set_mode((WINDOW_WIDTH2, WINDOW_HEIGHT2))	
 
-	fondo = pygame.image.load("imagenes/fondotetris.png").convert()
-
-	miFuente = pygame.font.Font(None,30)
-	miTexto = miFuente.render("OPCIONES DEL JUEGO", 0, (255,255,255))
-
-	
 	#cargamos la fuente tipo arcade
 	letra_arcade = pygame.font.Font("ka1.ttf", 30)
 	
 	#creamos los textos
-	letra = letra_arcade.render("TECLAS DEL JUEGO", 0, (255,255,255))
+	letra = letra_arcade.render("TECLAS DEL JUEGO", 0, blanco)
 
-	textoUP = letra_arcade.render("ROTAR FICHA", 0, (255,255,255))
-	textoDOWN = letra_arcade.render("BAJAR FICHA", 0, (255,255,255))
-	textoIZQ = letra_arcade.render("MOVER A IZQUIERDA", 0, (255,255,255))
-	textoDER = letra_arcade.render("MOVER A DERECHA", 0, (255,255,255))
-	textoSPACE = letra_arcade.render("HARD DROP", 0, (255,255,255))
-	textoP = letra_arcade.render("PAUSA", 0, (255,255,255))
-	textoM = letra_arcade.render("MUTEAR", 0, (255,255,255))
+	textoUP = letra_arcade.render("ROTAR FICHA", 0, blanco)
+	textoDOWN = letra_arcade.render("BAJAR FICHA", 0, blanco)
+	textoIZQ = letra_arcade.render("MOVER A IZQUIERDA", 0, blanco)
+	textoDER = letra_arcade.render("MOVER A DERECHA", 0, blanco)
+	textoSPACE = letra_arcade.render("HARD DROP", 0, blanco)
+	textoP = letra_arcade.render("PAUSA", 0, blanco)
+	textoM = letra_arcade.render("MUTEAR", 0, blanco)
 
 
 
@@ -97,7 +56,6 @@ def mostrar_opciones():
 	#Dentro de este while se va a correr todo el codigo del pygame
 	while run:
 
-			#ventana.blit(fondo, [0,0])
 			ventana.fill((14,8,52))
 			ventana.blit(letra,rectanguloTextoPresent)
 			
@@ -139,7 +97,7 @@ def mostrar_opciones():
 	pygame.quit()
 
 if __name__ == "__main__":
-    mostrar_opciones()
+    mostrar_como_jugar()
 
 
 

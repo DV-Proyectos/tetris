@@ -1,34 +1,28 @@
 import pygame
 import sys
-import numpy as np
 import menu_principal
-from juego import Boton
-
+from juego.juego import Boton
+from colores.colores import *
 #----------------------------------------------------------------------------------#
 
 #tamaño de la ventana del pygame
 WINDOW_WIDTH2, WINDOW_HEIGHT2 = 600, 600
-tile_size = 50
 
 def mostrar_creditos():
 	pygame.init()
 	pygame.display.set_caption("Creditos:)")
 	ventana = pygame.display.set_mode((WINDOW_WIDTH2, WINDOW_HEIGHT2))
 	fondo = pygame.image.load("imagenes/fondotetris.png").convert()
-
-	miFuente = pygame.font.Font(None,30)
-	miTexto = miFuente.render("Proyecto para la materia de Ingracion Tecnologica", 0, (255,255,255))
-
 	
 	#cargamos la fuente tipo arcade
 	letra_arcade = pygame.font.Font("ka1.ttf", 16)
 	
 	#creamos los textos
-	letra = letra_arcade.render("Proyecto para la materia de Ingracion Tecnologica", 0, (255,255,255),(0,0,0))
-	letra2 = letra_arcade.render("Integrantes", 0, (200,200,200) )
-	letra3 = letra_arcade.render("Chen David  Romero Daiana  Torres Maximiliano", 0, (200,200,200) )	
-	letra4 = letra_arcade.render("DOCENTE",0, (200,200,200) )	
-	letra5 = letra_arcade.render("MISAEL CUDEK", 0, (200,200,200) )	
+	letra = letra_arcade.render("Proyecto para la materia de Ingracion Tecnologica", 0, blanco,(0,0,0))
+	letra2 = letra_arcade.render("Integrantes", 0, gris_claro )
+	letra3 = letra_arcade.render("Chen David  Romero Daiana  Torres Maximiliano", 0, gris_claro )	
+	letra4 = letra_arcade.render("DOCENTE",0, gris_claro )	
+	letra5 = letra_arcade.render("MISAEL CUDEK", 0, gris_claro )	
 
 	#esto sirve para centrar los textos de cada parrafo
 	rectanguloTextoPresent = letra.get_rect()
