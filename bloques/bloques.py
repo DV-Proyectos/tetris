@@ -31,8 +31,8 @@ class Block(pygame.sprite.Sprite):
         self._draw()
     
     def _draw(self, x=4, y=0):
-        width = len(self.struct[0]) * self.juego.title_size
-        height = len(self.struct) * self.juego.title_size
+        width = len(self.struct[0]) * self.juego.tile_size
+        height = len(self.struct) * self.juego.tile_size
         self.image = pygame.surface.Surface([width, height])
         self.image.set_colorkey(negro)
         # Position and size
@@ -45,8 +45,8 @@ class Block(pygame.sprite.Sprite):
                     pygame.draw.rect(
                         self.image,
                         self.color,
-                        Rect(x*self.juego.title_size + 1, y*self.juego.title_size + 1,
-                             self.juego.title_size - 2, self.juego.title_size - 2)
+                        Rect(x*self.juego.tile_size + 1, y*self.juego.tile_size + 1,
+                             self.juego.tile_size - 2, self.juego.tile_size - 2)
                     )
         self._create_mask()
     
@@ -72,7 +72,7 @@ class Block(pygame.sprite.Sprite):
     @x.setter
     def x(self, value):
         self._x = value
-        self.rect.left = value*self.juego.title_size
+        self.rect.left = value*self.juego.tile_size
     
     @property
     def y(self):
@@ -81,7 +81,7 @@ class Block(pygame.sprite.Sprite):
     @y.setter
     def y(self, value):
         self._y = value
-        self.rect.top = value*self.juego.title_size
+        self.rect.top = value*self.juego.tile_size
     
     def move_left(self, group):
         self.x -= 1

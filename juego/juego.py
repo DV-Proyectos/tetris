@@ -42,10 +42,10 @@ class Grid():
 
 class Juego():
  
-    def __init__(self, window, grid, title_size):
+    def __init__(self, window, grid, tile_size):
         self.window = window
         self.grid = grid
-        self.title_size = title_size
+        self.tile_size = tile_size
         self.COLUMNAS = 10
         self.FILAS = 20
 
@@ -54,13 +54,13 @@ class Juego():
         grid_color = gris
         # Vertical lines.
         for i in range(self.COLUMNAS+1):
-            x = self.title_size * i
+            x = self.tile_size * i
             pygame.draw.line(
                 background, grid_color, (x, 0), (x, self.grid.height)
             )
         # Horizontal liens.
         for i in range(self.FILAS+1):
-            y = self.title_size * i
+            y = self.tile_size * i
             pygame.draw.line(
                 background, grid_color, (0, y), (self.grid.width, y)
             )
